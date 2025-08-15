@@ -1,0 +1,10 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+/*
+1. npm install -D tailwindcss@3.4.17
+2. you can easily fix it by setting up a new language mode, ctrl + shift + p then type language Mode: tailwindcss
+and make sure you are setting language mode when you're currently in index.css file
+
+
+*/
