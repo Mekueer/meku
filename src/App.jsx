@@ -77,7 +77,7 @@ export default function Navbar() {
               Skills
             </a>
             <a
-              href="#projects"
+              href="#skills"
               className="hover:text-blue-600"
               onClick={() => setIsOpen(false)}
             >
