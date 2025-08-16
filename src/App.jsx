@@ -1,32 +1,28 @@
-/*
-import { Header } from "./components/header";
-import { Projects } from "./components/projects";
-import {Contact} from "./components/contact"
-import {About} from "./components/about"
-import {Skill} from "./components/skill"
-import { Home } from "./components/home";
-export default function App() {
-  return ( 
-    <div>
-                     
-        <div className="bg-orange-400 w-[1350px]" >
-         <Header></Header>
-</div>
-        <Home></Home>
-            <div>
-        <About> </About>
-        </div>
+import React, { useState, useRef, useEffect } from "react";
+import { Menu, X } from "lucide-react"; // hamburger + close icons
 
-  </div>
-   
-  );
-}
-  */
-import { useState } from "react";
+export default function Navbar() {
+  const [isOpen, setIsOpen] = useState(false);
+  const menuRef = useRef(null);
 
-export default function App() {
-  const [menuOpen, setMenuOpen] = useState(false);
+  // Handle outside click
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (menuRef.current && !menuRef.current.contains(event.target)) {
+        setIsOpen(false);
+      }
+    }
 
+    if (isOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    } else {
+      document.removeEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [isOpen]);
   return (
     <div className="  min-h-screen bg-gray-50 text-gray-900 font-sans">
       {/* Navbar */}
@@ -39,50 +35,58 @@ export default function App() {
           <div className="  hidden md:flex gap-6 text-lg">
             <a href="#top" className="hover:text-blue-600">Home</a>
             <a href="#about" className="hover:text-blue-600">About</a>
+            <a href="#skills" className="hover:text-blue-600">Skills</a>
             <a href="#projects" className="hover:text-blue-600">Projects</a>
             <a href="#contact" className="hover:text-blue-600">Contact</a>
           </div>
 
-          {/* Mobile Hamburger Button */}
-          <button
-            className="md:hidden flex flex-col gap-1"
-            onClick={() => setMenuOpen(!menuOpen)}
-          >
-            <span className="w-6 h-0.5 bg-gray-800"></span>
-            <span className="w-6 h-0.5 bg-gray-800"></span>
-            <span className="w-6 h-0.5 bg-gray-800"></span>
-          </button>
-        </div>
+          {/* Mobile Menu Button */}
+        <button
+          onClick={() => setIsOpen(!isOpen)}
+          className="md:hidden text-gray-700"
+        >
+          {isOpen ? <X size={28} /> : <Menu size={28} />}
+        </button>
+      </div>
 
-        {/* Mobile Menu */}
-        {menuOpen && (
-          <div className="flex flex-col gap-4 mt-4 md:hidden  ml-96">
-
+      {/* Mobile Menu */}
+      {isOpen && (
+        <div
+          ref={menuRef}
+          className="md:hidden bg-white shadow-lg border-t px-6 py-4  flex flex-col space-y-4 justify-end"
+        >
             <a
               href="#top"
               className="hover:text-blue-600"
-              onClick={() => setMenuOpen(false)}
+              onClick={() => setIsOpen(false)}
             >
               Home
             </a>
             <a
               href="#about"
               className="hover:text-blue-600"
-              onClick={() => setMenuOpen(false)}
+              onClick={() => setIsOpen(false)}
             >
               About
+            </a>
+                        <a
+              href="#projects"
+              className="hover:text-blue-600"
+              onClick={() => setIsOpen(false)}
+            >
+              Skills
             </a>
             <a
               href="#projects"
               className="hover:text-blue-600"
-              onClick={() => setMenuOpen(false)}
+              onClick={() => setIsOpen(false)}
             >
               Projects
             </a>
             <a
               href="#contact"
               className="hover:text-blue-600"
-              onClick={() => setMenuOpen(false)}
+              onClick={() => setIsOpen(false)}
             >
               Contact
             </a>
@@ -133,32 +137,67 @@ export default function App() {
           I am passionate about creating impactful tools and adapting new technlogy.
           </p>
       </section>
+        {/* Skills Section */}
+<section id="skills" className="py-16 px-6 max-w-5xl mx-auto">
+  <h3 className="text-2xl font-bold mb-6 text-center">Skills</h3>
 
+  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+    {/* Frontend Skills */}
+    <div className="bg-white shadow rounded-lg p-4 hover:shadow-lg transition">
+      <h4 className="text-lg font-bold mb-2">Frontend Development</h4>
+      <ul className="list-disc list-inside text-gray-700">
+        <li>React.js</li>
+        <li>HTML & CSS</li>
+        <li>Tailwind CSS</li>
+        <li>JavaScript / TypeScript</li>
+      </ul>
+    </div>
+
+    {/* Backend Skills */}
+    <div className="bg-white shadow rounded-lg p-4 hover:shadow-lg transition">
+      <h4 className="text-lg font-bold mb-2">Backend Development</h4>
+      <ul className="list-disc list-inside text-gray-700">
+        <li>Node.js & Express.js</li>
+        <li>MongoDB / Mongoose & MySql</li>
+        <li>RESTful APIs</li>
+        <li>Authentication & Authorization</li>
+      </ul>
+    </div>
+
+    {/* Other Skills */}
+    <div className="bg-white shadow rounded-lg p-4 hover:shadow-lg transition">
+      <h4 className="text-lg font-bold mb-2">Other Skills</h4>
+      <ul className="list-disc list-inside text-gray-700">
+        <li>AI Development</li>
+        <li>Software Development Lifecycle (SDLC)</li>
+        <li>Task Planning & Project Management</li>
+        <li>Teaching & Academic Leadership</li>
+      </ul>
+    </div>
+  </div>
+</section>
       {/* Projects Section */}
       <section id="projects" className="py-16 bg-gray-100 px-6">
         <h3 className="text-2xl font-bold mb-6 text-center">Projects</h3>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
           {[
             {
-              title: "Multi-level Approval System",
-              desc: "A request management platform with Admin, Department, and Registrar approval stages."
+              title: "Student Dormitory management System",
+              desc: "A system to efficiently manage student dormitory assignments, occupancy, and related administrative tasks."
             },
             {
               title: "Social Media Message Manager",
               desc: "Tool for managing multiple social media account messages in one interface."
             },
             {
-              title: "Zoom QR Code Overlay App",
-              desc: "Customizable QR code overlay tool for Zoom video calls."
+              title: "Kebele Residential management System",
+              desc: "A digital system to efficiently manage resident and household information within a kebele."
             },
-            {
-              title: "Plastic Surgeon Portfolio Website",
-              desc: "Responsive and visually appealing WordPress site for a medical professional."
+                        {
+              title: "Portfolio Website",
+              desc: " A personal portfolio website showcasing my projects, skills, and professional experience."
             },
-            {
-              title: "Cryptocurrency Wallet Tracker",
-              desc: "Web app for tracking multiple cryptocurrency wallets in real-time."
-            },
+
             {
               title: "Amharic Sign Language Recognition",
               desc: "Prototype for recognizing Amharic sign language using AI."
