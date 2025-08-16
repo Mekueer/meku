@@ -70,14 +70,14 @@ export default function Navbar() {
               About
             </a>
                         <a
-              href="#projects"
+              href="#skills"
               className="hover:text-blue-600"
               onClick={() => setIsOpen(false)}
             >
               Skills
             </a>
             <a
-              href="#skills"
+              href="#projects"
               className="hover:text-blue-600"
               onClick={() => setIsOpen(false)}
             >
@@ -133,7 +133,7 @@ export default function Navbar() {
           Currently, I serve as a lecturer in Engineering & Technology College @ MTU.
           <br /><br />
           My skills span across applications development, full-stack web development (React, Node.js, Express, MongoDB),
-          mobile app development and Electrica and Computer Engineering project supervision.
+          mobile app development and Electrical and Computer Engineering project supervision.
           I am passionate about creating impactful tools and adapting new technlogy.
           </p>
       </section>
