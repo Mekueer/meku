@@ -242,8 +242,6 @@ export default function Navbar() {
           </button>
         </form>
         <div className="mt-6 text-gray-700">
-          <p><strong>Email:</strong> mekueer@gmail.com</p>
-          <p><strong>Phone:</strong> +251 930 974 987</p>
           <p><strong>Location:</strong> Addis Ababa, Ethiopia</p>
         </div>
       </section>
